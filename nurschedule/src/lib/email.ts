@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 // Email options
 const mailOptions = {
   from: process.env.EMAIL_USER,
-  to: "charmanderv123@gmail.com",
+  to: "recipient@example.com",
   subject: "Automated Email from NurSchedule Service",
   text: "A new slot is available for booking. \nDate: [INSERT DATE]\nTime: [INSERT TIME] Please check the NurSchedule service for further details.",
 };
