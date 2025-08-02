@@ -50,11 +50,11 @@ export default function CalendarClient({
     <>
       <p>{userId}</p>
       <Calendar
+        className="rounded-xl"
         modifiers={{ days: dayShifts, nights: nightShifts }}
         modifiersClassNames={{
-          days: "bg-green-500/20 text-green-800 ring-1 ring-green-400 rounded-full",
-          nights:
-            "bg-blue-500/20 text-blue-800 ring-1 ring-blue-400 rounded-full",
+          days: "bg-blue-100 text-blue-700 ring-1 ring-blue-200 rounded-full",
+          nights: "bg-blue-200 text-blue-800 ring-1 ring-blue-300 rounded-full",
         }}
       />
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">
@@ -65,12 +65,12 @@ export default function CalendarClient({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             required
-            className="mt-1 w-full border border-gray-300 rounded px-3 py-2"
+            className="mt-1 w-full border border-blue-300 rounded-md px-3 py-2 font-sans"
           />
         </label>
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 font-sans"
         >
           Submit
         </button>
