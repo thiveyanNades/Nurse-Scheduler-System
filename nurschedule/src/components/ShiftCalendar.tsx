@@ -27,6 +27,7 @@ export default function CalendarClient({
   userId: string;
 }) {
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const { dayShifts, nightShifts } = splitShiftsByTime(shifts);
 
@@ -35,7 +36,7 @@ export default function CalendarClient({
 
     const res = await fetch("/api/ai-input", {
       method: "POST",
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ message, user_id: userId }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -74,6 +75,7 @@ export default function CalendarClient({
           Submit
         </button>
       </form>
+      <div>{error}</div>
     </>
   );
 }

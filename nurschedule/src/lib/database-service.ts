@@ -15,3 +15,149 @@ export async function getShiftsByUserId(userId: string) {
 
   return shifts || [];
 }
+
+///////////////////////////////////
+
+// src/utils/supabase/shifts.ts
+
+// async function logShiftChange(
+//   userID: string,
+//   shiftID: string,
+//   description: string
+// ) {
+//   try {
+//     const { data, error } = await supabase.from("shift_change_log").insert([
+//       {
+//         user_change: userID,
+//         shift_date_effected: shiftID,
+//         description: description,
+//       },
+//     ]);
+
+//     if (error) {
+//       console.error("Error logging shift change:", error);
+//     }
+//   } catch (error) {
+//     console.error("Error logging shift change:", error);
+//   }
+// }
+
+// Function to add a shift for a given user ID and shift ID
+export async function addShift(
+  user_id: string,
+  date: string,
+  time: boolean,
+  status: boolean
+) {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("shifts")
+      .insert([{ user_id, date, time, status }]);
+
+    if (error) {
+      console.error("Error adding shift:", error);
+      return {};
+    }
+
+    // await logShiftChange(
+    //   userID,
+    //   shiftID,
+    //   `Shift ${shiftID} added for user ${userID}`
+    // );
+
+    return data;
+  } catch (error) {
+    console.error("Error adding shift:", error);
+    return {};
+  }
+}
+
+////////////////
+// src/utils/supabase/shifts.ts
+
+// Function to remove a shift for a given user ID and shift ID with a reason
+export async function removeShift(shiftID: number, reason: string) {
+  try {
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+      .from("shifts")
+      .update({
+        user_id: null,
+        status: 0,
+      })
+      .eq("id", shiftID);
+
+    if (error) {
+      console.error("Error clearing shift:", error.message);
+      return { success: false, error };
+    }
+
+    console.log(`Shift ${shiftID} cleared with reason: ${reason}`);
+    return { success: true, data };
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    return { success: false, error };
+  }
+}
+
+/////////////////////////
+
+export async function removeShiftByUserID(
+  user_id: string,
+  date: string, // or Date if you're formatting it
+  time: boolean,
+  reason: string
+) {
+  try {
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+      .from("shifts")
+      .update({
+        user_id: null,
+        status: 0,
+      })
+      .match({
+        user_id,
+        date,
+        time,
+      });
+
+    if (error) {
+      console.error("Error clearing shift:", error.message);
+      return { success: false, error };
+    }
+
+    if (!data || data.length === 0) {
+      console.warn("No matching shift found to remove.");
+      return { success: false, message: "No matching shift found." };
+    }
+
+    console.log(
+      `Cleared shift for ${user_id} on ${date} (${
+        time ? "day" : "night"
+      }) — reason: ${reason}`
+    );
+    return { success: true, data };
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    return { success: false, error };
+  }
+}
+
+export async function addEmail(user_id: string, user_email: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("emails")
+    .insert([{ user_id, user_email }]);
+
+  if (error) {
+    console.error("Insert error:", error.message);
+    return { error };
+  }
+
+  return { data };
+}

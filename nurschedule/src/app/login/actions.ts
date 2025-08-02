@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { addEmail } from "@/lib/database-service";
 
 import { createClient } from "@/utils/supabase/server";
 
@@ -43,6 +44,8 @@ export async function signup(formData: FormData) {
       },
     },
   });
+
+  addEmail("", email);
 
   if (error) {
     console.error(error);

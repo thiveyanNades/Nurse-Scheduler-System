@@ -109,5 +109,10 @@ export default async function Page() {
 
   const shifts = await getShiftsByUserId(data.user.id);
 
-  return <CalendarClient shifts={shifts} userId={data.user.id} />;
+  return (
+    <>
+      <CalendarClient shifts={shifts} userId={data.user.id} />
+      <div>{error}</div>
+    </>
+  );
 }
