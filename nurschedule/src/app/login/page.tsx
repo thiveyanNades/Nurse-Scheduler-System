@@ -1,3 +1,6 @@
+export const metadata = {
+  title: "Login",
+};
 import { login, signup } from "./actions";
 import {
   Card,

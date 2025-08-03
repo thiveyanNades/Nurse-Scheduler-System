@@ -1,3 +1,6 @@
+export const metadata = {
+  title: "Private",
+};
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
