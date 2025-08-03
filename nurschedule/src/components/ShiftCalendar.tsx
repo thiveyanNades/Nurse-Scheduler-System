@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 
@@ -19,17 +19,73 @@ function splitShiftsByTime(shifts: { date: string; time: boolean }[]): {
   return { dayShifts, nightShifts };
 }
 
+function splitShiftsByTimeEmpty(shifts: { date: string; time: boolean }[]) {
+  const emptyshifts: Date[] = [];
+
+  for (const shift of shifts) {
+    const [year, month, day] = shift.date.split("-").map(Number);
+    const jsDate = new Date(year, month - 1, day);
+    emptyshifts.push(jsDate);
+  }
+
+  return emptyshifts;
+}
+
+function isSameDay(date1: Date, date2: Date): boolean {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}
+
 export default function CalendarClient({
   shifts,
+  emptyshifts,
   userId,
 }: {
-  shifts: { date: string; time: boolean }[];
+  shifts: { date: string; time: boolean; status: number }[];
+  emptyshifts: { date: string; time: boolean }[];
   userId: string;
 }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
-  const { dayShifts, nightShifts } = splitShiftsByTime(shifts);
+  const dayShifts: Date[] = [];
+  const nightShifts: Date[] = [];
+  const allEmptyShifts: Date[] = [];
+
+  if (Array.isArray(shifts)) {
+    for (const shift of shifts) {
+      const [year, month, day] = shift.date.split("-").map(Number);
+      const jsDate = new Date(year, month - 1, day);
+      if (shift.status === 0) {
+        allEmptyShifts.push(jsDate);
+      } else {
+        (shift.time ? dayShifts : nightShifts).push(jsDate);
+      }
+    }
+  }
+
+  if (Array.isArray(emptyshifts)) {
+    for (const shift of emptyshifts) {
+      const [year, month, day] = shift.date.split("-").map(Number);
+      const jsDate = new Date(year, month - 1, day);
+      allEmptyShifts.push(jsDate);
+    }
+  }
+
+  // Remove duplicates from allEmptyShifts
+  const filteredEmptyShifts = allEmptyShifts.filter(
+    (emptyDate) =>
+      !dayShifts.some((dayDate) => isSameDay(emptyDate, dayDate)) &&
+      !nightShifts.some((nightDate) => isSameDay(emptyDate, nightDate))
+  );
+
+  // Replace the original array with filtered version
+  allEmptyShifts.length = 0;
+  allEmptyShifts.push(...filteredEmptyShifts);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -44,22 +100,29 @@ export default function CalendarClient({
 
     const data = await res.json();
     console.log(data);
+    router.refresh();
   }
 
   return (
     <>
-      <p>{userId}</p>
+      {/* <p>{userId}</p> */}
       <Calendar
         className="rounded-xl"
-        modifiers={{ days: dayShifts, nights: nightShifts }}
+        modifiers={{
+          empty: allEmptyShifts,
+          nights: nightShifts,
+          days: dayShifts,
+        }}
         modifiersClassNames={{
-          days: "bg-blue-100 text-blue-700 ring-1 ring-blue-200 rounded-full",
+          empty:
+            "bg-purple-200 text-purple-800 ring-1 ring-purple-300 rounded-full",
+          days: "bg-amber-200 text-amber-700 ring-1 ring-amber-200 rounded-full",
           nights: "bg-blue-200 text-blue-800 ring-1 ring-blue-300 rounded-full",
         }}
       />
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">
         <label className="block">
-          Your Message:
+          What would you like to do? :
           <input
             type="text"
             value={message}

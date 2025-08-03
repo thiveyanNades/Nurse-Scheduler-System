@@ -1,0 +1,74 @@
+Date : 2025-08-02 23:50:23
+Directory : /home/ishaan/documents/projects/NurSchedule/nurschedule/src
+Total : 28 files,  1264 codes, 85 comments, 204 blanks, all 1553 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| TypeScript JSX |         13 |        759 |          4 |         88 |        851 |
+| TypeScript     |         14 |        418 |         81 |        100 |        599 |
+| PostCSS        |          1 |         87 |          0 |         16 |        103 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                     | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                        |         28 |      1,264 |         85 |        204 |      1,553 |
+| . (Files)                                                                                |          1 |         10 |          7 |          3 |         20 |
+| app                                                                                      |         13 |        431 |         17 |         85 |        533 |
+| app (Files)                                                                              |          3 |        128 |          0 |         24 |        152 |
+| app/api                                                                                  |          4 |        105 |          8 |         21 |        134 |
+| app/api/addShift                                                                         |          1 |         19 |          0 |          4 |         23 |
+| app/api/ai-input                                                                         |          1 |         63 |          7 |         12 |         82 |
+| app/api/removeShift                                                                      |          1 |         11 |          0 |          2 |         13 |
+| app/api/testGet                                                                          |          1 |         12 |          1 |          3 |         16 |
+| app/auth                                                                                 |          1 |         21 |          2 |          6 |         29 |
+| app/auth/confirm                                                                         |          1 |         21 |          2 |          6 |         29 |
+| app/dashboard                                                                            |          1 |         42 |          1 |          7 |         50 |
+| app/error                                                                                |          1 |         23 |          0 |          3 |         26 |
+| app/login                                                                                |          2 |        102 |          6 |         19 |        127 |
+| app/private                                                                              |          1 |         10 |          0 |          5 |         15 |
+| components                                                                               |          7 |        581 |          1 |         60 |        642 |
+| components (Files)                                                                       |          1 |         73 |          1 |         10 |         84 |
+| components/ui                                                                            |          6 |        508 |          0 |         50 |        558 |
+| lib                                                                                      |          4 |        169 |         40 |         42 |        251 |
+| utils                                                                                    |          3 |         73 |         20 |         14 |        107 |
+| utils/supabase                                                                           |          3 |         73 |         20 |         14 |        107 |
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                 | language       | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/api/addShift/route.ts    | TypeScript     |         19 |          0 |          4 |         23 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/api/ai-input/route.ts    | TypeScript     |         63 |          7 |         12 |         82 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/api/removeShift/route.ts | TypeScript     |         11 |          0 |          2 |         13 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/api/testGet/route.ts     | TypeScript     |         12 |          1 |          3 |         16 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/auth/confirm/route.ts    | TypeScript     |         21 |          2 |          6 |         29 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/dashboard/page.tsx       | TypeScript JSX |         42 |          1 |          7 |         50 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/error/page.tsx           | TypeScript JSX |         23 |          0 |          3 |         26 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/globals.css              | PostCSS        |         87 |          0 |         16 |        103 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/layout.tsx               | TypeScript JSX |         30 |          0 |          5 |         35 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/login/actions.ts         | TypeScript     |         40 |          4 |         14 |         58 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/login/page.tsx           | TypeScript JSX |         62 |          2 |          5 |         69 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/page.tsx                 | TypeScript JSX |         11 |          0 |          3 |         14 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/private/page.tsx         | TypeScript JSX |         10 |          0 |          5 |         15 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ShiftCalendar.tsx | TypeScript JSX |         73 |          1 |         10 |         84 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/button.tsx     | TypeScript JSX |         54 |          0 |          6 |         60 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/calendar.tsx   | TypeScript JSX |        203 |          0 |         11 |        214 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/card.tsx       | TypeScript JSX |         83 |          0 |         10 |         93 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/dialog.tsx     | TypeScript JSX |        130 |          0 |         14 |        144 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/input.tsx      | TypeScript JSX |         18 |          0 |          4 |         22 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/label.tsx      | TypeScript JSX |         20 |          0 |          5 |         25 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/lib/database-service.ts      | TypeScript     |        116 |         32 |         32 |        180 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/lib/email.ts                 | TypeScript     |          0 |          0 |          1 |          1 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/lib/llm-service.ts           | TypeScript     |         48 |          8 |          7 |         63 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/lib/utils.ts                 | TypeScript     |          5 |          0 |          2 |          7 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/middleware.ts                | TypeScript     |         10 |          7 |          3 |         20 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/utils/supabase/client.ts     | TypeScript     |          7 |          0 |          2 |          9 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/utils/supabase/middleware.ts | TypeScript     |         42 |         17 |          9 |         68 |
+| /home/ishaan/documents/projects/NurSchedule/nurschedule/src/utils/supabase/server.ts     | TypeScript     |         24 |          3 |          3 |         30 |
+| Total                                                                                    |                |      1,264 |         85 |        204 |      1,553 |
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

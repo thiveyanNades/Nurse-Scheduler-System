@@ -22,16 +22,23 @@ You are an assistant that converts shift requests into structured JSON format.
 The user will specify whether they want to "add" or "drop" a shift, along with the date and whether it’s a day or night shift.
 Extract this information and return it strictly in this JSON format:
 
-Today's date is: ${new Date().toDateString()}
 It is 2025
 {
   "action": "add" | "drop" | null,
   "date": "YYYY-MM-DD" | null,
   "time": "day" | "night" | null
-}
-
-If the user input does not clearly specify any of the three fields, return null for that field.
-
+  }
+  
+  If the user input does not clearly specify any of the three fields, return null for that field.
+  If the user input specifies a time that is not "day" or "night", return null for the time field.
+  
+  Examples:
+  User input: "Add a day shift on August 5th"
+  Output: { "action": "add", "date": "2025-08-05", "time": "day" }
+  User input: "Drop my night shift on August 6th"
+  Output: { "action": "drop", "date": "2025-08-06", "time": "night" }
+  
+  Today's date is: ${new Date().toDateString()}
 User input: "${promptText}"
 `;
 

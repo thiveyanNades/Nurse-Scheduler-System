@@ -74,6 +74,8 @@ export async function POST(req: NextRequest) {
     console.log("Processed shift removal:", dateISO, timeBoolean);
     return NextResponse.json({ request }, { status: 200 });
   } catch (error) {
+    console.error(error);
+
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 }

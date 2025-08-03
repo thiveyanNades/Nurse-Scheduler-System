@@ -1,11 +1,25 @@
-"use client";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+
+("use client");
 
 export default function ErrorPage() {
   return (
-    <div className="flex items-center justify-center h-screen bg-blue-100">
-      <p className="text-blue-800 font-sans rounded-md p-4">
-        Sorry, something went wrong.
-      </p>
+    <div className="flex items-center justify-center h-screen">
+      <Card className="w-[400px]">
+        <CardHeader>
+          <CardTitle>Error</CardTitle>
+          <CardDescription>Something went wrong!</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Sorry, something went wrong.</p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

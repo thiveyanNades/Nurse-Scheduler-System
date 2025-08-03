@@ -1,15 +1,31 @@
 import { createClient } from "@/utils/supabase/server";
-
+import { sendEmail } from "./email";
 export async function getShiftsByUserId(userId: string) {
   const supabase = await createClient();
 
   const { data: shifts, error } = await supabase
     .from("shifts")
-    .select("*")
+    .select("*, status")
     .eq("user_id", userId);
 
   if (error) {
     console.error("Error fetching shifts:", error);
+    return [];
+  }
+
+  return shifts || [];
+}
+
+export async function getUnfilledShifts() {
+  const supabase = await createClient();
+
+  const { data: shifts, error } = await supabase
+    .from("shifts")
+    .select("*")
+    .eq("status", 0); // Filter for status == 0 (empty/dropped shifts)
+
+  if (error) {
+    console.error("Error fetching unfilled shifts:", error);
     return [];
   }
 
@@ -51,6 +67,22 @@ export async function addShift(
 ) {
   try {
     const supabase = await createClient();
+
+    // First, remove the existing "empty" shift
+    const { data: deleteData, error: deleteError } = await supabase
+      .from("shifts")
+      .delete()
+      .match({
+        date,
+        time,
+        status: 0, // Ensure it's an "empty" shift (dropped shift)
+      });
+
+    if (deleteError) {
+      console.error("Error deleting existing empty shift:", deleteError);
+      return {}; // Or handle the error as needed
+    }
+
     const { data, error } = await supabase
       .from("shifts")
       .insert([{ user_id, date, time, status }]);
@@ -59,12 +91,6 @@ export async function addShift(
       console.error("Error adding shift:", error);
       return {};
     }
-
-    // await logShiftChange(
-    //   userID,
-    //   shiftID,
-    //   `Shift ${shiftID} added for user ${userID}`
-    // );
 
     return data;
   } catch (error) {
@@ -94,6 +120,17 @@ export async function removeShift(shiftID: number, reason: string) {
       return { success: false, error };
     }
 
+    const emailsObject = await getEmails(); // Expecting { data: [...] } or possibly undefined
+
+    const emailList = (emailsObject?.data ?? [])
+      .map((entry) => entry.user_email)
+      .filter((email) => email && email.trim() !== "");
+
+    for (const email of emailList) {
+      console.log(email);
+      await sendEmail(email);
+    }
+
     console.log(`Shift ${shiftID} cleared with reason: ${reason}`);
     return { success: true, data };
   } catch (error) {
@@ -111,9 +148,11 @@ export async function removeShiftByUserID(
   reason: string
 ) {
   try {
+    const emailsObject = await getEmails(); // Expecting { data: [...] } or possibly undefined
+
     const supabase = await createClient();
 
-    const { data, error } = await supabase
+    const { data, error } = (await supabase
       .from("shifts")
       .update({
         user_id: null,
@@ -123,14 +162,14 @@ export async function removeShiftByUserID(
         user_id,
         date,
         time,
-      });
+      })) as { data: any[] | null; error: any };
 
     if (error) {
       console.error("Error clearing shift:", error.message);
       return { success: false, error };
     }
 
-    if (!data || data.length === 0) {
+    if (!Array.isArray(data) || data.length === 0) {
       console.warn("No matching shift found to remove.");
       return { success: false, message: "No matching shift found." };
     }
@@ -140,6 +179,16 @@ export async function removeShiftByUserID(
         time ? "day" : "night"
       }) — reason: ${reason}`
     );
+
+    const emailList = (emailsObject?.data ?? [])
+      .map((entry) => entry.user_email)
+      .filter((email) => email && email.trim() !== "");
+
+    for (const email of emailList) {
+      console.log(email);
+      await sendEmail(email);
+    }
+
     return { success: true, data };
   } catch (error) {
     console.error("Unexpected error:", error);
@@ -153,6 +202,19 @@ export async function addEmail(user_id: string, user_email: string) {
   const { data, error } = await supabase
     .from("emails")
     .insert([{ user_id, user_email }]);
+
+  if (error) {
+    console.error("Insert error:", error.message);
+    return { error };
+  }
+
+  return { data };
+}
+
+export async function getEmails() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.from("emails").select("*");
 
   if (error) {
     console.error("Insert error:", error.message);
