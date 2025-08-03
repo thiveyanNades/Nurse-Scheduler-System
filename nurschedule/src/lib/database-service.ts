@@ -5,7 +5,7 @@ export async function getShiftsByUserId(userId: string) {
 
   const { data: shifts, error } = await supabase
     .from("shifts")
-    .select("*")
+    .select("*, status")
     .eq("user_id", userId);
 
   if (error) {

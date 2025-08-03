@@ -36,16 +36,30 @@ export default function CalendarClient({
   emptyshifts,
   userId,
 }: {
-  shifts: { date: string; time: boolean }[];
+  shifts: { date: string; time: boolean; status: number }[];
   emptyshifts: { date: string; time: boolean }[];
   userId: string;
 }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  const { dayShifts, nightShifts } = splitShiftsByTime(
-    Array.isArray(shifts) ? shifts : []
-  );
+
+  const dayShifts: Date[] = [];
+  const nightShifts: Date[] = [];
+  const droppedShifts: Date[] = [];
+
+  if (Array.isArray(shifts)) {
+    for (const shift of shifts) {
+      const [year, month, day] = shift.date.split("-").map(Number);
+      const jsDate = new Date(year, month - 1, day);
+      if (shift.status === 0) {
+        droppedShifts.push(jsDate);
+      } else {
+        (shift.time ? dayShifts : nightShifts).push(jsDate);
+      }
+    }
+  }
+
   const emptyshiftsCalendar = splitShiftsByTimeEmpty(
     Array.isArray(emptyshifts) ? emptyshifts : []
   );
@@ -75,12 +89,15 @@ export default function CalendarClient({
           empty: emptyshiftsCalendar,
           days: dayShifts,
           nights: nightShifts,
+          dropped: droppedShifts,
         }}
         modifiersClassNames={{
           empty:
             "bg-purple-200 text-purple-800 ring-1 ring-purple-300 rounded-full",
           days: "bg-amber-200 text-amber-700 ring-1 ring-amber-200 rounded-full",
           nights: "bg-blue-200 text-blue-800 ring-1 ring-blue-300 rounded-full",
+          dropped:
+            "bg-purple-400 text-purple-800 ring-1 ring-purple-300 rounded-full",
         }}
       />
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">

@@ -10,7 +10,7 @@ import { createClient } from "@/utils/supabase/server";
 import { getShiftsByUserId, getUnfilledShifts } from "@/lib/database-service";
 import CalendarClient from "../../components/ShiftCalendar";
 import { redirect } from "next/navigation";
-import { UserCircle } from "lucide-react"; // Icon for UI enhancement
+import { UserCircle } from "lucide-react";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -41,7 +41,11 @@ export default async function Page() {
         </CardHeader>
 
         <CardContent className="grid gap-6">
-          <CalendarClient shifts={shifts} userId={data.user.id} />
+          <CalendarClient
+            shifts={shifts}
+            emptyshifts={emptyshifts}
+            userId={data.user.id}
+          />
           {/* {error && <div className="text-red-500">Error: {error.message}</div>} */}
         </CardContent>
       </Card>
