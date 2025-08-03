@@ -67,6 +67,22 @@ export async function addShift(
 ) {
   try {
     const supabase = await createClient();
+
+    // First, remove the existing "empty" shift
+    const { data: deleteData, error: deleteError } = await supabase
+      .from("shifts")
+      .delete()
+      .match({
+        date,
+        time,
+        status: false, // Ensure it's an "empty" shift
+      });
+
+    if (deleteError) {
+      console.error("Error deleting existing empty shift:", deleteError);
+      return {}; // Or handle the error as needed
+    }
+
     const { data, error } = await supabase
       .from("shifts")
       .insert([{ user_id, date, time, status }]);
@@ -75,12 +91,6 @@ export async function addShift(
       console.error("Error adding shift:", error);
       return {};
     }
-
-    // await logShiftChange(
-    //   userID,
-    //   shiftID,
-    //   `Shift ${shiftID} added for user ${userID}`
-    // );
 
     return data;
   } catch (error) {
@@ -129,7 +139,7 @@ export async function removeShiftByUserID(
   try {
     const supabase = await createClient();
 
-    const { data, error } = await supabase
+    const { data, error } = (await supabase
       .from("shifts")
       .update({
         user_id: null,
@@ -139,14 +149,14 @@ export async function removeShiftByUserID(
         user_id,
         date,
         time,
-      });
+      })) as { data: any[] | null; error: any };
 
     if (error) {
       console.error("Error clearing shift:", error.message);
       return { success: false, error };
     }
 
-    if (!data || data.length === 0) {
+    if (!Array.isArray(data) || data.length === 0) {
       console.warn("No matching shift found to remove.");
       return { success: false, message: "No matching shift found." };
     }

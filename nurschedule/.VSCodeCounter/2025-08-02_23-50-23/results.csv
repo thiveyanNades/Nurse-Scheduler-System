@@ -1,0 +1,30 @@
+"filename", "language", "TypeScript", "TypeScript JSX", "PostCSS", "comment", "blank", "total"
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/api/addShift/route.ts", "TypeScript", 19, 0, 0, 0, 4, 23
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/api/ai-input/route.ts", "TypeScript", 63, 0, 0, 7, 12, 82
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/api/removeShift/route.ts", "TypeScript", 11, 0, 0, 0, 2, 13
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/api/testGet/route.ts", "TypeScript", 12, 0, 0, 1, 3, 16
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/auth/confirm/route.ts", "TypeScript", 21, 0, 0, 2, 6, 29
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/dashboard/page.tsx", "TypeScript JSX", 0, 42, 0, 1, 7, 50
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/error/page.tsx", "TypeScript JSX", 0, 23, 0, 0, 3, 26
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/globals.css", "PostCSS", 0, 0, 87, 0, 16, 103
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/layout.tsx", "TypeScript JSX", 0, 30, 0, 0, 5, 35
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/login/actions.ts", "TypeScript", 40, 0, 0, 4, 14, 58
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/login/page.tsx", "TypeScript JSX", 0, 62, 0, 2, 5, 69
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/page.tsx", "TypeScript JSX", 0, 11, 0, 0, 3, 14
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/app/private/page.tsx", "TypeScript JSX", 0, 10, 0, 0, 5, 15
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ShiftCalendar.tsx", "TypeScript JSX", 0, 73, 0, 1, 10, 84
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/button.tsx", "TypeScript JSX", 0, 54, 0, 0, 6, 60
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/calendar.tsx", "TypeScript JSX", 0, 203, 0, 0, 11, 214
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/card.tsx", "TypeScript JSX", 0, 83, 0, 0, 10, 93
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/dialog.tsx", "TypeScript JSX", 0, 130, 0, 0, 14, 144
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/input.tsx", "TypeScript JSX", 0, 18, 0, 0, 4, 22
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/components/ui/label.tsx", "TypeScript JSX", 0, 20, 0, 0, 5, 25
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/lib/database-service.ts", "TypeScript", 116, 0, 0, 32, 32, 180
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/lib/email.ts", "TypeScript", 0, 0, 0, 0, 1, 1
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/lib/llm-service.ts", "TypeScript", 48, 0, 0, 8, 7, 63
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/lib/utils.ts", "TypeScript", 5, 0, 0, 0, 2, 7
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/middleware.ts", "TypeScript", 10, 0, 0, 7, 3, 20
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/utils/supabase/client.ts", "TypeScript", 7, 0, 0, 0, 2, 9
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/utils/supabase/middleware.ts", "TypeScript", 42, 0, 0, 17, 9, 68
+"/home/ishaan/documents/projects/NurSchedule/nurschedule/src/utils/supabase/server.ts", "TypeScript", 24, 0, 0, 3, 3, 30
+"Total", "-", 418, 759, 87, 85, 204, 1553

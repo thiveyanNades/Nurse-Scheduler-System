@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 
 import { createClient } from "@/utils/supabase/server";
-import { getShiftsByUserId } from "@/lib/database-service";
+import { getShiftsByUserId, getUnfilledShifts } from "@/lib/database-service";
 import CalendarClient from "../../components/ShiftCalendar";
 import { redirect } from "next/navigation";
 import { UserCircle } from "lucide-react"; // Icon for UI enhancement
@@ -21,6 +21,7 @@ export default async function Page() {
   }
 
   const shifts = await getShiftsByUserId(data.user.id);
+  const emptyshifts = await getUnfilledShifts();
   const userName = data.user.user_metadata?.name || data.user.email;
 
   return (
