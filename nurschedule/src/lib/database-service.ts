@@ -149,6 +149,7 @@ export async function removeShiftByUserID(
 ) {
   try {
     const emailsObject = await getEmails(); // Expecting { data: [...] } or possibly undefined
+    console.log(emailsObject);
 
     const supabase = await createClient();
 
@@ -163,6 +164,17 @@ export async function removeShiftByUserID(
         date,
         time,
       })) as { data: any[] | null; error: any };
+
+    const emailList = (emailsObject?.data ?? [])
+      .map((entry) => entry.user_email)
+      .filter((email) => email && email.trim() !== "");
+
+    console.log("EMAILLIST: ", emailList);
+
+    for (const email of emailList) {
+      console.log(email);
+      sendEmail(email);
+    }
 
     if (error) {
       console.error("Error clearing shift:", error.message);
@@ -179,15 +191,6 @@ export async function removeShiftByUserID(
         time ? "day" : "night"
       }) — reason: ${reason}`
     );
-
-    const emailList = (emailsObject?.data ?? [])
-      .map((entry) => entry.user_email)
-      .filter((email) => email && email.trim() !== "");
-
-    for (const email of emailList) {
-      console.log(email);
-      await sendEmail(email);
-    }
 
     return { success: true, data };
   } catch (error) {
