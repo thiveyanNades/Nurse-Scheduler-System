@@ -28,7 +28,7 @@ export default async function Page() {
   const shifts = await getShiftsByUserId(data.user.id);
   const emptyshifts = await getUnfilledShifts();
   const userName = data.user.user_metadata?.name || data.user.email;
-  console.log("Fetched shifts:", shifts);
+  // console.log("Fetched shifts:", shifts);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-20 px-4 flex items-center justify-center">

@@ -13,13 +13,14 @@ const transporter = nodemailer.createTransport({
 
 // Function to send mail
 export async function sendEmail(recipient: string) {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: recipient,
-    subject: "Automated Email from NurSchedule Service",
-    text: "A new slot is available for booking. Please check the NurSchedule service for further details.",
-  };
   try {
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: recipient,
+      subject: "Automated Email from NurSchedule Service",
+      text: "A new slot is available for booking. Please check the NurSchedule service for further details.",
+    };
+
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent:", info.response);
   } catch (error) {
