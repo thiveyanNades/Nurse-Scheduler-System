@@ -46,23 +46,27 @@ export default function CalendarClient({
 
   const dayShifts: Date[] = [];
   const nightShifts: Date[] = [];
-  const droppedShifts: Date[] = [];
+  const allEmptyShifts: Date[] = [];
 
   if (Array.isArray(shifts)) {
     for (const shift of shifts) {
       const [year, month, day] = shift.date.split("-").map(Number);
       const jsDate = new Date(year, month - 1, day);
       if (shift.status === 0) {
-        droppedShifts.push(jsDate);
+        allEmptyShifts.push(jsDate);
       } else {
         (shift.time ? dayShifts : nightShifts).push(jsDate);
       }
     }
   }
 
-  const emptyshiftsCalendar = splitShiftsByTimeEmpty(
-    Array.isArray(emptyshifts) ? emptyshifts : []
-  );
+  if (Array.isArray(emptyshifts)) {
+    for (const shift of emptyshifts) {
+      const [year, month, day] = shift.date.split("-").map(Number);
+      const jsDate = new Date(year, month - 1, day);
+      allEmptyShifts.push(jsDate);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -86,18 +90,15 @@ export default function CalendarClient({
       <Calendar
         className="rounded-xl"
         modifiers={{
-          empty: emptyshiftsCalendar,
+          empty: allEmptyShifts,
           days: dayShifts,
           nights: nightShifts,
-          dropped: droppedShifts,
         }}
         modifiersClassNames={{
           empty:
             "bg-purple-200 text-purple-800 ring-1 ring-purple-300 rounded-full",
           days: "bg-amber-200 text-amber-700 ring-1 ring-amber-200 rounded-full",
           nights: "bg-blue-200 text-blue-800 ring-1 ring-blue-300 rounded-full",
-          dropped:
-            "bg-purple-400 text-purple-800 ring-1 ring-purple-300 rounded-full",
         }}
       />
       <form onSubmit={handleSubmit} className="space-y-4 mt-4">

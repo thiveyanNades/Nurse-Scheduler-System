@@ -22,7 +22,7 @@ export async function getUnfilledShifts() {
   const { data: shifts, error } = await supabase
     .from("shifts")
     .select("*")
-    .eq("status", false); // Filter for status == false
+    .eq("status", 0); // Filter for status == 0 (empty/dropped shifts)
 
   if (error) {
     console.error("Error fetching unfilled shifts:", error);
@@ -75,7 +75,7 @@ export async function addShift(
       .match({
         date,
         time,
-        status: false, // Ensure it's an "empty" shift
+        status: 0, // Ensure it's an "empty" shift (dropped shift)
       });
 
     if (deleteError) {
