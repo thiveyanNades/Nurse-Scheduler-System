@@ -31,6 +31,14 @@ function splitShiftsByTimeEmpty(shifts: { date: string; time: boolean }[]) {
   return emptyshifts;
 }
 
+function isSameDay(date1: Date, date2: Date): boolean {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}
+
 export default function CalendarClient({
   shifts,
   emptyshifts,
@@ -68,6 +76,17 @@ export default function CalendarClient({
     }
   }
 
+  // Remove duplicates from allEmptyShifts
+  const filteredEmptyShifts = allEmptyShifts.filter(
+    (emptyDate) =>
+      !dayShifts.some((dayDate) => isSameDay(emptyDate, dayDate)) &&
+      !nightShifts.some((nightDate) => isSameDay(emptyDate, nightDate))
+  );
+
+  // Replace the original array with filtered version
+  allEmptyShifts.length = 0;
+  allEmptyShifts.push(...filteredEmptyShifts);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -91,8 +110,8 @@ export default function CalendarClient({
         className="rounded-xl"
         modifiers={{
           empty: allEmptyShifts,
-          days: dayShifts,
           nights: nightShifts,
+          days: dayShifts,
         }}
         modifiersClassNames={{
           empty:

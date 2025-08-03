@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-
+import { sendEmail } from "./email";
 export async function getShiftsByUserId(userId: string) {
   const supabase = await createClient();
 
@@ -120,6 +120,17 @@ export async function removeShift(shiftID: number, reason: string) {
       return { success: false, error };
     }
 
+    const emailsObject = await getEmails(); // Expecting { data: [...] } or possibly undefined
+
+    const emailList = (emailsObject?.data ?? [])
+      .map((entry) => entry.user_email)
+      .filter((email) => email && email.trim() !== "");
+
+    for (const email of emailList) {
+      console.log(email);
+      await sendEmail(email);
+    }
+
     console.log(`Shift ${shiftID} cleared with reason: ${reason}`);
     return { success: true, data };
   } catch (error) {
@@ -137,6 +148,8 @@ export async function removeShiftByUserID(
   reason: string
 ) {
   try {
+    const emailsObject = await getEmails(); // Expecting { data: [...] } or possibly undefined
+
     const supabase = await createClient();
 
     const { data, error } = (await supabase
@@ -166,6 +179,16 @@ export async function removeShiftByUserID(
         time ? "day" : "night"
       }) — reason: ${reason}`
     );
+
+    const emailList = (emailsObject?.data ?? [])
+      .map((entry) => entry.user_email)
+      .filter((email) => email && email.trim() !== "");
+
+    for (const email of emailList) {
+      console.log(email);
+      await sendEmail(email);
+    }
+
     return { success: true, data };
   } catch (error) {
     console.error("Unexpected error:", error);
@@ -179,6 +202,19 @@ export async function addEmail(user_id: string, user_email: string) {
   const { data, error } = await supabase
     .from("emails")
     .insert([{ user_id, user_email }]);
+
+  if (error) {
+    console.error("Insert error:", error.message);
+    return { error };
+  }
+
+  return { data };
+}
+
+export async function getEmails() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.from("emails").select("*");
 
   if (error) {
     console.error("Insert error:", error.message);

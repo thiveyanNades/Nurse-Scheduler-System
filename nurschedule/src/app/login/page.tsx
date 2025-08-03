@@ -26,7 +26,7 @@ export default function LoginPage() {
         {/* LOGIN FORM */}
         <form action={login}>
           <CardContent className="grid gap-4">
-            <div className="flex flex-col space-y-1.5">
+            {/* <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
@@ -34,7 +34,7 @@ export default function LoginPage() {
                 type="text"
                 placeholder="Your Name"
               />
-            </div>
+            </div> */}
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
