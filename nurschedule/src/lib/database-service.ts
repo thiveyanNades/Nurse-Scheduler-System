@@ -16,6 +16,22 @@ export async function getShiftsByUserId(userId: string) {
   return shifts || [];
 }
 
+export async function getUnfilledShifts() {
+  const supabase = await createClient();
+
+  const { data: shifts, error } = await supabase
+    .from("shifts")
+    .select("*")
+    .eq("status", false); // Filter for status == false
+
+  if (error) {
+    console.error("Error fetching unfilled shifts:", error);
+    return [];
+  }
+
+  return shifts || [];
+}
+
 ///////////////////////////////////
 
 // src/utils/supabase/shifts.ts

@@ -50,12 +50,12 @@ export default function CalendarClient({
 
   return (
     <>
-      <p>{userId}</p>
+      {/* <p>{userId}</p> */}
       <Calendar
         className="rounded-xl"
         modifiers={{ days: dayShifts, nights: nightShifts }}
         modifiersClassNames={{
-          days: "bg-blue-100 text-blue-700 ring-1 ring-blue-200 rounded-full",
+          days: "bg-amber-300 text-amber-700 ring-1 ring-amber-200 rounded-full",
           nights: "bg-blue-200 text-blue-800 ring-1 ring-blue-300 rounded-full",
         }}
       />
