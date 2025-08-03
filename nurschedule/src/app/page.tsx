@@ -1,13 +1,18 @@
+"use client";
+
 import React from "react";
 import { Calendar } from "@/components/ui/calendar";
 
-function Homepage() {
-  return (
-    <div className="mx-auto max-w-md p-4">
-      <h1>Shift Calendar</h1>
-      <Calendar />
-    </div>
-  );
-}
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default Homepage;
+export default function RedirectPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Automatically redirect to /dashboard
+    router.push("/dashboard");
+  }, [router]);
+
+  return null; // Optional: or show a loading spinner
+}

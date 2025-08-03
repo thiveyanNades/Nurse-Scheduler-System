@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardHeader,
@@ -5,8 +7,6 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-
-("use client");
 
 export default function ErrorPage() {
   return (
