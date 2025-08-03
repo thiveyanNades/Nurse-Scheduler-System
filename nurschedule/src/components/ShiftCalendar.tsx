@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 
@@ -28,6 +28,7 @@ export default function CalendarClient({
 }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const { dayShifts, nightShifts } = splitShiftsByTime(shifts);
 
@@ -44,6 +45,7 @@ export default function CalendarClient({
 
     const data = await res.json();
     console.log(data);
+    router.refresh();
   }
 
   return (

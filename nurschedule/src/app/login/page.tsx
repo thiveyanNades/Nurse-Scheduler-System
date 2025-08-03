@@ -1,44 +1,68 @@
 import { login, signup } from "./actions";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function LoginPage() {
   return (
-    <form className="flex flex-col gap-4 p-4">
-      <label htmlFor="name">Name:</label>
-      <input
-        id="name"
-        name="name"
-        type="text"
-        required
-        className="border border-blue-300 rounded-md px-3 py-2 font-sans"
-      />
-      <label htmlFor="email">Email:</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        required
-        className="border border-blue-300 rounded-md px-3 py-2 font-sans"
-      />
-      <label htmlFor="password">Password:</label>
-      <input
-        id="password"
-        name="password"
-        type="password"
-        required
-        className="border border-blue-300 rounded-md px-3 py-2 font-sans"
-      />
-      <button
-        formAction={login}
-        className="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 font-sans"
-      >
-        Log in
-      </button>
-      <button
-        formAction={signup}
-        className="bg-blue-400 text-white rounded-md px-4 py-2 hover:bg-blue-500 font-sans"
-      >
-        Sign up
-      </button>
-    </form>
+    <div className="container flex items-center justify-center h-screen">
+      <Card className="w-[350px]">
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>
+            Enter your email and password to login
+          </CardDescription>
+        </CardHeader>
+
+        {/* LOGIN FORM */}
+        <form action={login}>
+          <CardContent className="grid gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Your Name"
+              />
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Your Email"
+              />
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" name="password" type="password" required />
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button type="submit">Log In</Button>
+          </CardFooter>
+        </form>
+
+        {/* SIGNUP FORM */}
+        <form action={signup}>
+          <CardFooter className="flex justify-between">
+            <Button type="submit" variant="secondary">
+              Sign Up
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
+    </div>
   );
 }
