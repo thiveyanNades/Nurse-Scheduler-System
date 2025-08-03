@@ -1,7 +1,4 @@
 "use client";
-export const metadata = {
-  title: "Error",
-};
 
 import {
   Card,
