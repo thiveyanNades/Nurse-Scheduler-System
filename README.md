@@ -1,6 +1,6 @@
 NurSchedule 🩺📅
 
-An AI-powered nurse scheduling system that lets nurses book, change, or cancel shifts using natural language input. No more phone calls or clunky forms — just type requests like:
+An AI-powered nurse scheduling system that lets nurses book, change, or cancel shifts using natural language input. No more phone calls or clunky forms - just type requests like:
 
 "Book me off next Friday"
 
@@ -10,7 +10,7 @@ An AI-powered nurse scheduling system that lets nurses book, change, or cancel s
 
 🚀 Inspiration
 
-During COVID-19, we saw how outdated scheduling systems put extra strain on nurses. One teammate’s mom still had to call a receptionist to manage shifts — inefficient and error-prone. We wanted to build a tool that makes scheduling simple, fast, and intelligent.
+During COVID-19, we saw how outdated scheduling systems put extra strain on nurses. One teammate’s mom still had to call a receptionist to manage shifts - inefficient and error-prone. We wanted to build a tool that makes scheduling simple, fast, and intelligent.
 
 ✨ What it does
 
